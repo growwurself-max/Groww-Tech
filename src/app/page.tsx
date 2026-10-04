@@ -1,6 +1,10 @@
-import { Hero } from "@/components/hero/hero";
+﻿import { Hero } from "@/components/hero/hero";
 import { FeaturedProducts } from "@/components/sections/featured-products";
 import { WebExperiences } from "@/components/sections/web-experiences";
+import { WatchOurWork } from "@/components/sections/watch-our-work";
+import { HowWeBuild } from "@/components/sections/how-we-build";
+import { TechnologyCapabilities } from "@/components/sections/technology-capabilities";
+import { Growing } from "@/components/sections/growing";
 
 export default function Home() {
   return (
@@ -8,6 +12,15 @@ export default function Home() {
       <Hero />
       <FeaturedProducts />
       <WebExperiences />
+      <WatchOurWork />
+      <HowWeBuild />
+      <TechnologyCapabilities />
+      <Growing />
     </>
   );
 }
+
+
+
+
+

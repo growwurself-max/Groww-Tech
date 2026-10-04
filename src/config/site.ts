@@ -1,4 +1,4 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   name: "GROWW TECH",
   shortName: "GROWW",
   tagline: "A product-building studio",
@@ -17,5 +17,10 @@ export const mainNav: readonly NavItem[] = [
   { label: "Products", href: "#products" },
   { label: "Experiments", href: "#experiments" },
   { label: "Videos", href: "#videos" },
-  { label: "Studio", href: "#studio" },
+  { label: "How We Build", href: "#how-we-build" },
+  { label: "Tech", href: "#tech" },
+  { label: "Growing", href: "#growing" },
 ];
+
+
+
