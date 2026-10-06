@@ -44,8 +44,8 @@ export type Experience = {
   tech: readonly string[];
   /** Local screenshot path, or null to render the CSS placeholder. */
   preview: string | null;
-  /** Always present — every listed project has a verified live URL. */
-  liveUrl: string;
+  /** Verified live URL, or null when no public link should be shown. */
+  liveUrl: string | null;
   /** Real YouTube video or playlist URL, or null when none exists. */
   videoUrl: string | null;
   /** Overrides the video button label, e.g. a playlist. */
@@ -69,7 +69,7 @@ export const experiences: readonly Experience[] = [
     description:
       "An interactive 3D furniture experience, presented directly in the browser.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/3d-furniture.png",
     liveUrl: "https://me-3d-mu.vercel.app/",
     videoUrl: null,
     visual: "furniture3d",
@@ -80,8 +80,8 @@ export const experiences: readonly Experience[] = [
     category: "Websites",
     description: "A web app for looking up and checking scores.",
     tech: [],
-    preview: null,
-    liveUrl: "https://scorecheck-azure.vercel.app/",
+    preview: "/screenshots/score-check.png",
+    liveUrl: null,
     videoUrl: null,
     visual: "scoreCheck",
   },
@@ -91,7 +91,7 @@ export const experiences: readonly Experience[] = [
     category: "Websites",
     description: "A launch web experience built around a book release.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/book-launch.png",
     liveUrl: "https://brand-or-die.vercel.app/",
     videoUrl: null,
     visual: "bookLaunch",
@@ -102,7 +102,7 @@ export const experiences: readonly Experience[] = [
     category: "Websites",
     description: "A cafe web experience — a full brand page built as part of our web practice.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/waffel-cafe.png",
     liveUrl: "https://wowfells.vercel.app/",
     videoUrl: null,
     visual: "waffelCafe",
@@ -114,7 +114,7 @@ export const experiences: readonly Experience[] = [
     description:
       "Personalized animated mini websites and digital experiences — small, expressive sites built around a person, a brand or a moment.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/cupi.png",
     liveUrl: "https://cupi-one.vercel.app/",
     videoUrl: null,
     alsoFeatured: true,
@@ -127,7 +127,7 @@ export const experiences: readonly Experience[] = [
     description:
       "An AI-powered question paper generation platform that turns source material into structured question papers.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/paper-hub.png",
     liveUrl: "https://paper-hub-1.vercel.app/",
     videoUrl: "https://youtu.be/b35Igt5H1SM?si=4b70XQ2u0z-ClUu_",
     videoLabel: "Watch Demo",
@@ -141,7 +141,7 @@ export const experiences: readonly Experience[] = [
     description:
       "A digital result management platform for educational institutions — publish results, and let students and staff reach them without the paperwork.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/result-hub.png",
     liveUrl: "https://result-hub-ten.vercel.app/",
     videoUrl: "https://youtube.com/playlist?list=PLDjy9inTnOPA&si=NC5Ym2bZWF2i-3a0",
     videoLabel: "Watch playlist",
@@ -155,7 +155,7 @@ export const experiences: readonly Experience[] = [
     description:
       "A business and order management project covering the full order loop — from taking an order to fulfilling and settling it.",
     tech: [],
-    preview: null,
+    preview: "/screenshots/tea-flow.png",
     liveUrl: "https://order-manager-team.vercel.app/",
     videoUrl: "https://youtu.be/DyMt0qNzl0w?si=cCyYeGzE6IOHKkwB",
     alsoFeatured: true,

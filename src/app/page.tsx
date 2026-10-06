@@ -5,6 +5,13 @@ import { WatchOurWork } from "@/components/sections/watch-our-work";
 import { HowWeBuild } from "@/components/sections/how-we-build";
 import { TechnologyCapabilities } from "@/components/sections/technology-capabilities";
 import { Growing } from "@/components/sections/growing";
+import { FinalCTA } from "@/components/sections/final-cta";
+import { siteConfig } from "@/config/site";
+
+export const metadata = {
+  title: siteConfig.tagline,
+  description: siteConfig.description,
+};
 
 export default function Home() {
   return (
@@ -16,6 +23,7 @@ export default function Home() {
       <HowWeBuild />
       <TechnologyCapabilities />
       <Growing />
+      <FinalCTA />
     </>
   );
 }

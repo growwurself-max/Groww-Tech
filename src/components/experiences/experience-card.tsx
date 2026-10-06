@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import type { PointerEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
@@ -20,7 +21,8 @@ type ExperienceCardProps = {
 
 export function ExperienceCard({ experience, index = 0, featured = false }: ExperienceCardProps) {
   const reduceMotion = useReducedMotion();
-  const { name, description, tech, category, liveUrl, videoUrl, videoLabel } = experience;
+  const [imageError, setImageError] = React.useState(false);
+  const { name, description, tech, category, liveUrl, videoUrl, videoLabel, preview } = experience;
 
   const entrance = {
     hidden: { opacity: 0, y: 26 },
@@ -89,7 +91,7 @@ export function ExperienceCard({ experience, index = 0, featured = false }: Expe
                   "group-hover:scale-[1.045] motion-reduce:transform-none",
                 )}
               >
-                {experience.preview ? (
+                {experience.preview && !imageError ? (
                   <div className="relative aspect-16/10 w-full">
                     <Image
                       src={experience.preview}
@@ -97,10 +99,11 @@ export function ExperienceCard({ experience, index = 0, featured = false }: Expe
                       fill
                       sizes="(min-width: 1280px) 46rem, (min-width: 768px) 45vw, 92vw"
                       className="object-cover"
+                      onError={() => setImageError(true)}
                     />
                   </div>
                 ) : (
-                  <ExperienceArtwork visual={experience.visual} />
+                  <ExperienceArtwork visual={experience.visual} name={name} />
                 )}
               </div>
             </div>
@@ -139,16 +142,18 @@ export function ExperienceCard({ experience, index = 0, featured = false }: Expe
 
             {/* Actions — a link renders only when a verified URL exists */}
             <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-              <a
-                href={liveUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={`Open ${name} live demo (opens in a new tab)`}
-                className="inline-flex h-11 items-center gap-1.5 rounded-pill bg-ink px-4 text-sm font-medium text-white transition-colors duration-300 ease-smooth hover:bg-brand-700"
-              >
-                Live Demo
-                <ArrowUpRight className="size-3.5" />
-              </a>
+              {liveUrl ? (
+                <a
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`Open ${name} live demo (opens in a new tab)`}
+                  className="inline-flex h-11 items-center gap-1.5 rounded-pill bg-ink px-4 text-sm font-medium text-white transition-colors duration-300 ease-smooth hover:bg-brand-700"
+                >
+                  Live Demo
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+              ) : null}
 
               {videoUrl ? (
                 <a

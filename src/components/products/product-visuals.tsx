@@ -1,3 +1,7 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import type { ProductVisual } from "@/config/products";
 
@@ -307,7 +311,51 @@ const visualMap = {
   teaFlow: TeaFlowVisual,
 } as const;
 
-export function ProductVisualArea({ visual }: { visual: ProductVisual }) {
+const screenshotMap: Record<ProductVisual, string> = {
+  cupi: "/screenshots/cupi.png",
+  resultHub: "/screenshots/result-hub.png",
+  paperHub: "/screenshots/paper-hub.png",
+  teaFlow: "/screenshots/tea-flow.png",
+};
+
+function ScreenshotVisual({ src, alt, fallback }: { src: string; alt: string; fallback: React.ReactNode }) {
+  const [error, setError] = React.useState(false);
+
+  if (error) {
+    return <>{fallback}</>;
+  }
+
+  return (
+    <div className="relative h-full w-full overflow-hidden rounded-2xl bg-canvas-soft">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority={false}
+        onError={() => setError(true)}
+      />
+    </div>
+  );
+}
+
+export function ProductVisualArea({ visual, name }: { visual: ProductVisual; name: string }) {
+  const screenshotPath = screenshotMap[visual];
   const Visual = visualMap[visual];
-  return <Visual />;
+
+  // Try to use screenshot if it exists, otherwise fall back to CSS visual
+  return (
+    <div className="group relative h-full w-full">
+      {screenshotPath ? (
+        <ScreenshotVisual
+          src={screenshotPath}
+          alt={`${name} screenshot`}
+          fallback={<Visual />}
+        />
+      ) : (
+        <Visual />
+      )}
+    </div>
+  );
 }

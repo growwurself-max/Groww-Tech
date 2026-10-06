@@ -39,6 +39,7 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     url: siteConfig.url,
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
@@ -46,6 +47,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: siteConfig.url,
+  },
 };
 
 export const viewport: Viewport = {
@@ -62,7 +66,10 @@ export default function RootLayout({
         <SmoothScroll />
         <SkipLink />
         <SiteHeader />
-        <main id="main">{children}</main>
+        <main id="main" className="scroll-mt-20">
+          <div id="top" className="absolute -top-20" />
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

@@ -67,7 +67,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           style={reduceMotion ? undefined : { x, y }}
           className="transition-transform duration-700 ease-smooth will-change-transform"
         >
-          <ProductVisualArea visual={product.visual} />
+          <ProductVisualArea visual={product.visual} name={product.name} />
         </motion.div>
       </div>
 

@@ -16,20 +16,20 @@
 export const PRODUCT_LINK_PLACEHOLDERS = {
   cupi: {
     /** Real public URL for the Cupi demo. */
-    liveUrl: null as string | null,
+    liveUrl: "https://cupi-one.vercel.app/" as string | null,
     /** Real YouTube URL for the Cupi walkthrough. */
     videoUrl: null as string | null,
   },
   resultHub: {
-    liveUrl: null as string | null,
+    liveUrl: "https://result-hub-ten.vercel.app/" as string | null,
     videoUrl: null as string | null,
   },
   paperHub: {
-    liveUrl: null as string | null,
+    liveUrl: "https://paper-hub-1.vercel.app/" as string | null,
     videoUrl: null as string | null,
   },
   teaFlow: {
-    liveUrl: null as string | null,
+    liveUrl: "https://order-manager-team.vercel.app/" as string | null,
     videoUrl: null as string | null,
   },
 } as const;

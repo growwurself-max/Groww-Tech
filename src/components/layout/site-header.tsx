@@ -30,6 +30,15 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      setOpen(false);
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -48,6 +57,7 @@ export function SiteHeader() {
         >
           <a
             href="#top"
+            onClick={(e) => handleNavClick(e, "#top")}
             className="rounded-full outline-offset-4"
             aria-label="GROWW TECH — home"
           >
@@ -59,7 +69,8 @@ export function SiteHeader() {
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-pill px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-300 ease-smooth hover:bg-canvas-soft hover:text-ink"
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="rounded-pill px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-300 ease-smooth hover:bg-canvas-soft hover:text-ink focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
               >
                 {item.label}
               </a>
@@ -77,7 +88,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="inline-flex size-10 items-center justify-center rounded-pill border border-line bg-surface text-ink shadow-xs transition-colors duration-300 ease-smooth hover:border-line-strong md:hidden"
+              className="inline-flex size-10 items-center justify-center rounded-pill border border-line bg-surface text-ink shadow-xs transition-colors duration-300 ease-smooth hover:border-line-strong focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 md:hidden"
             >
               {open ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
             </button>
@@ -100,8 +111,11 @@ export function SiteHeader() {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-ink transition-colors duration-300 ease-smooth hover:bg-canvas-soft"
+                      onClick={(e) => {
+                        handleNavClick(e, item.href);
+                        setOpen(false);
+                      }}
+                      className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-ink transition-colors duration-300 ease-smooth hover:bg-canvas-soft focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
                     >
                       {item.label}
                     </a>

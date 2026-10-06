@@ -1,3 +1,7 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import type { ExperienceVisual } from "@/config/experiences";
 import type { ProductVisual } from "@/config/products";
@@ -287,16 +291,61 @@ const placeholderMap = {
 
 type PlaceholderVisual = keyof typeof placeholderMap;
 
+const websiteScreenshotMap: Record<Exclude<PlaceholderVisual, ProductVisual>, string> = {
+  furniture3d: "/screenshots/3d-furniture.png",
+  scoreCheck: "/screenshots/score-check.png",
+  bookLaunch: "/screenshots/book-launch.png",
+  waffelCafe: "/screenshots/waffel-cafe.png",
+};
+
+function ScreenshotVisual({ src, alt, fallback }: { src: string; alt: string; fallback: React.ReactNode }) {
+  const [error, setError] = React.useState(false);
+
+  if (error) {
+    return <>{fallback}</>;
+  }
+
+  return (
+    <div className="relative h-full w-full overflow-hidden rounded-2xl bg-canvas-soft">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority={false}
+        onError={() => setError(true)}
+      />
+    </div>
+  );
+}
+
 function isProductVisual(visual: ExperienceVisual): visual is ProductVisual {
   return (
     visual === "cupi" || visual === "resultHub" || visual === "paperHub" || visual === "teaFlow"
   );
 }
 
-/** Renders either the existing product artwork or one of the new placeholders. */
-export function ExperienceArtwork({ visual }: { visual: ExperienceVisual }) {
+function isWebsiteVisual(visual: ExperienceVisual): visual is Exclude<PlaceholderVisual, ProductVisual> {
+  return visual === "furniture3d" || visual === "scoreCheck" || visual === "bookLaunch" || visual === "waffelCafe";
+}
+
+/** Renders either the existing product artwork, a screenshot, or one of the new placeholders. */
+export function ExperienceArtwork({ visual, name }: { visual: ExperienceVisual; name: string }) {
   if (isProductVisual(visual)) {
-    return <ProductVisualArea visual={visual} />;
+    return <ProductVisualArea visual={visual} name={name} />;
+  }
+
+  if (isWebsiteVisual(visual)) {
+    const screenshotPath = websiteScreenshotMap[visual];
+    const Visual = placeholderMap[visual];
+    return (
+      <ScreenshotVisual
+        src={screenshotPath}
+        alt={`${name} screenshot`}
+        fallback={<Visual />}
+      />
+    );
   }
 
   const Visual = placeholderMap[visual as PlaceholderVisual];

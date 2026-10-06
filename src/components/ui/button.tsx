@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
@@ -16,7 +18,7 @@ type ButtonProps = {
 };
 
 const base =
-  "group relative inline-flex select-none items-center justify-center gap-2 rounded-pill font-medium tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-smooth active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50";
+  "group relative inline-flex select-none items-center justify-center gap-2 rounded-pill font-medium tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-smooth active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2";
 
 const variantMap: Record<Variant, string> = {
   primary:
@@ -44,9 +46,19 @@ export function Button({
 }: ButtonProps) {
   const classes = cn(base, variantMap[variant], sizeMap[size], className);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href?.startsWith("#")) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   if (href) {
     return (
-      <Link href={href} className={classes} aria-label={ariaLabel}>
+      <Link href={href} className={classes} aria-label={ariaLabel} onClick={handleClick}>
         {children}
       </Link>
     );
