@@ -192,7 +192,7 @@ export function Growing() {
                 We&apos;re Still <span className="text-gradient">Building.</span>
               </>
             }
-            description="GROWW TECH is a growing collection of ideas, experiments, and products. There&apos;s always something new taking shape."
+            description="GROWW TECH is a growing collection of ideas, experiments, and products. There's always something new taking shape."
           />
         </Reveal>
 

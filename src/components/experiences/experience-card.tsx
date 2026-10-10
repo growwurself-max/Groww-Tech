@@ -23,7 +23,7 @@ type ExperienceCardProps = {
 export function ExperienceCard({ experience, index = 0, featured = false }: ExperienceCardProps) {
   const reduceMotion = usePrefersReducedMotion();
   const [imageError, setImageError] = React.useState(false);
-  const { name, description, tech, category, liveUrl, videoUrl, videoLabel, preview } = experience;
+  const { name, description, tech, category, liveUrl, videoUrl, videoLabel } = experience;
 
   const entrance = {
     hidden: { opacity: 0, y: 26 },
@@ -83,6 +83,12 @@ export function ExperienceCard({ experience, index = 0, featured = false }: Expe
             "motion-reduce:transform-none",
           )}
         >
+          {/* Hairline highlight that draws across the top edge on hover */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-brand-500 to-transparent transition-transform duration-700 ease-smooth group-hover:scale-x-100"
+          />
+
           {/* Preview — the artwork zooms gently on hover */}
           <div className="relative overflow-hidden p-3 pb-0 sm:p-4 sm:pb-0">
             <div className="relative overflow-hidden rounded-2xl">

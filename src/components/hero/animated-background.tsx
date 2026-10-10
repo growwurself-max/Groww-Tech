@@ -1,32 +1,43 @@
-"use client";
-
-import { motion } from "motion/react";
-import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { cn } from "@/lib/cn";
 
 /**
- * Deterministic, seeded pseudo-random source. Using `Math.sin` (instead of
- * `Math.random`) guarantees the server and client generate identical particle
- * data, so the first client render matches the SSR markup exactly.
+ * Deterministic pseudo-random source.
+ *
+ * A 32-bit linear congruential generator. Every step is an exact integer
+ * operation inside the IEEE-754 safe range, so it produces byte-identical
+ * values on every JS engine. That matters because this component is rendered on
+ * the server and then hydrated on the client: any engine-dependent float math
+ * (e.g. `Math.sin`, `Math.random`) can round differently in Node vs the browser
+ * and produce a hydration mismatch.
  */
-function seededRandom(seed: number) {
-  const x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
+function createRandom(seed: number) {
+  let state = seed >>> 0;
+  return () => {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return state / 4294967296;
+  };
 }
 
+const random = createRandom(0x9e3779b9);
+
 /**
- * Particle positions/sizes are pre-computed once at module scope and rounded
- * to a low precision. Browsers normalise CSS numbers (e.g. 6 significant
- * figures), so passing raw high-precision floats — or bare numbers, which
- * motion serialises with a unit on the server but not on the client — caused a
- * hydration mismatch. Fixed-precision strings render identically everywhere.
+ * Particle geometry is pre-computed once and rounded to two decimals. The
+ * values are plain strings/config so the server markup and the first client
+ * render are identical — and because there is no runtime branching here, they
+ * can never drift apart.
  */
-const particles = Array.from({ length: 20 }, (_, i) => ({
+const particles = Array.from({ length: 18 }, (_, i) => ({
   id: i,
-  size: `${(seededRandom(i) * 4 + 2).toFixed(2)}px`,
-  left: `${(seededRandom(i + 100) * 100).toFixed(2)}%`,
-  top: `${(seededRandom(i + 200) * 100).toFixed(2)}%`,
-  duration: Number((seededRandom(i + 300) * 20 + 15).toFixed(2)),
-  delay: Number((seededRandom(i + 400) * 5).toFixed(2)),
+  size: `${(random() * 3.5 + 2).toFixed(2)}px`,
+  left: `${(random() * 92 + 4).toFixed(2)}%`,
+  top: `${(random() * 88 + 4).toFixed(2)}%`,
+  delay: `-${(random() * 12).toFixed(2)}s`,
+  duration: `${(random() * 10 + 8).toFixed(2)}s`,
+  float: cn(
+    i % 3 === 0 && "animate-float-a",
+    i % 3 === 1 && "animate-float-b",
+    i % 3 === 2 && "animate-float-c",
+  ),
 }));
 
 const MESH_GRADIENT = `
@@ -36,28 +47,19 @@ const MESH_GRADIENT = `
 `;
 
 /**
- * Animated gradient background with floating particles.
- * Lightweight, respects reduced-motion preferences.
+ * Animated gradient background with gently floating particles.
+ *
+ * Rendered entirely with CSS (no client JS, no motion library), so the
+ * server HTML and the initial client render are guaranteed to match. The
+ * global `prefers-reduced-motion` rule in `globals.css` neutralises all of the
+ * animations for users who ask for less motion.
  */
 export function AnimatedBackground() {
-  const reduceMotion = usePrefersReducedMotion();
-
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
       {/* Animated gradient mesh */}
-      <motion.div
-        className="absolute inset-0 opacity-40"
-        initial={{ backgroundPosition: "0% 0%" }}
-        animate={
-          reduceMotion
-            ? undefined
-            : { backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }
-        }
-        transition={
-          reduceMotion
-            ? undefined
-            : { duration: 30, repeat: Infinity, ease: "linear" as const }
-        }
+      <div
+        className="absolute inset-0 animate-mesh opacity-40"
         style={{
           background: MESH_GRADIENT,
           backgroundSize: "200% 200%",
@@ -65,38 +67,28 @@ export function AnimatedBackground() {
       />
 
       {/* Floating particles */}
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full bg-brand-200/30"
-          initial={{ x: 0, y: 0, opacity: 0.3 }}
-          animate={
-            reduceMotion
-              ? undefined
-              : {
-                  y: [0, -30, 0],
-                  x: [0, 15, 0],
-                  opacity: [0.3, 0.6, 0.3],
-                }
-          }
-          transition={
-            reduceMotion
-              ? undefined
-              : {
-                  duration: particle.duration,
-                  repeat: Infinity,
-                  delay: particle.delay,
-                  ease: "easeInOut" as const,
-                }
-          }
-          style={{
-            width: particle.size,
-            height: particle.size,
-            left: particle.left,
-            top: particle.top,
-          }}
-        />
-      ))}
+      <div className="absolute inset-0">
+        {particles.map((particle) => (
+          <span
+            key={particle.id}
+            className={cn(
+              "absolute rounded-full bg-brand-300/25 will-change-transform",
+              particle.float,
+            )}
+            style={{
+              width: particle.size,
+              height: particle.size,
+              left: particle.left,
+              top: particle.top,
+              animationDelay: particle.delay,
+              animationDuration: particle.duration,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Faint diagonal light sweep for depth */}
+      <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_35%,color-mix(in_oklab,var(--color-brand-100)_35%,transparent)_50%,transparent_65%)]" />
     </div>
   );
 }

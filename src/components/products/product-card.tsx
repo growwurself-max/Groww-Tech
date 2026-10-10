@@ -73,6 +73,12 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         transition={{ duration: 0.3 }}
       />
 
+      {/* Hairline highlight that draws across the top edge on hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-brand-500 to-transparent transition-transform duration-700 ease-smooth group-hover:scale-x-100"
+      />
+
       {/* Visual area — drifts slightly against the pointer for depth */}
       <div className="relative overflow-hidden p-3 pb-0 sm:p-4 sm:pb-0">
         <motion.div

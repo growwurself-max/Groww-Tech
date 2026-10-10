@@ -24,9 +24,9 @@
   /* ---------------------------------------------------------------------
      Canvas — warm off-white neutrals
      --------------------------------------------------------------------- */
-  --color-canvas: #f7f8f7;
-  --color-canvas-soft: #f1f3f2;
-  --color-canvas-deep: #e9ecea;
+  --color-canvas: #f8f7f3;
+  --color-canvas-soft: #f2f0ea;
+  --color-canvas-deep: #e9e6de;
   --color-surface: #ffffff;
   --color-surface-glass: rgb(255 255 255 / 0.66);
   --color-surface-glass-strong: rgb(255 255 255 / 0.82);
@@ -34,17 +34,17 @@
   /* ---------------------------------------------------------------------
      Ink — dark charcoal typography
      --------------------------------------------------------------------- */
-  --color-ink: #101413;
-  --color-ink-strong: #050807;
-  --color-ink-muted: #4b5450;
-  --color-ink-subtle: #7d8783;
-  --color-ink-faint: #a8b0ad;
+  --color-ink: #16140f;
+  --color-ink-strong: #0b0906;
+  --color-ink-muted: #514c42;
+  --color-ink-subtle: #837c6f;
+  --color-ink-faint: #aca496;
 
   /* ---------------------------------------------------------------------
      Lines & focus
      --------------------------------------------------------------------- */
-  --color-line: #e2e6e4;
-  --color-line-strong: #cfd5d2;
+  --color-line: #e6e2d9;
+  --color-line-strong: #d4cec2;
   --color-focus: var(--color-brand-600);
 
   /* ---------------------------------------------------------------------
@@ -113,17 +113,17 @@
   --radius-pill: 999px;
 
   /* ---------------------------------------------------------------------
-     Shadows — soft, low contrast
+     Shadows — soft, low contrast, warm-tinted
      --------------------------------------------------------------------- */
-  --shadow-xs: 0 1px 2px rgb(16 20 19 / 0.04);
-  --shadow-sm: 0 1px 2px rgb(16 20 19 / 0.04),
-    0 4px 12px -4px rgb(16 20 19 / 0.06);
-  --shadow-md: 0 2px 4px rgb(16 20 19 / 0.03),
-    0 12px 28px -8px rgb(16 20 19 / 0.08);
-  --shadow-lg: 0 4px 8px rgb(16 20 19 / 0.03),
-    0 28px 56px -16px rgb(16 20 19 / 0.12);
-  --shadow-xl: 0 8px 16px rgb(16 20 19 / 0.04),
-    0 48px 88px -24px rgb(16 20 19 / 0.16);
+  --shadow-xs: 0 1px 2px rgb(22 20 15 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(22 20 15 / 0.04),
+    0 4px 12px -4px rgb(22 20 15 / 0.06);
+  --shadow-md: 0 2px 4px rgb(22 20 15 / 0.03),
+    0 12px 28px -8px rgb(22 20 15 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(22 20 15 / 0.03),
+    0 28px 56px -16px rgb(22 20 15 / 0.13);
+  --shadow-xl: 0 8px 16px rgb(22 20 15 / 0.04),
+    0 48px 88px -24px rgb(22 20 15 / 0.17);
   --shadow-brand: 0 10px 30px -10px rgb(0 163 113 / 0.35);
   --shadow-brand-lg: 0 18px 46px -14px rgb(0 163 113 / 0.42);
   --shadow-inset-hairline: inset 0 1px 0 rgb(255 255 255 / 0.7);
@@ -141,6 +141,7 @@
   --animate-scale-in: scale-in 0.5s var(--ease-out-expo) both;
   --animate-drift: drift 22s var(--ease-in-out-soft) infinite;
   --animate-drift-slow: drift 34s var(--ease-in-out-soft) infinite reverse;
+  --animate-mesh: mesh-pan 30s var(--ease-in-out-soft) infinite;
   --animate-marquee: marquee 38s linear infinite;
   --animate-pulse-ring: pulse-ring 2.6s var(--ease-in-out-soft) infinite;
   --animate-float-a: float-a 9s var(--ease-in-out-soft) infinite;
@@ -187,6 +188,16 @@
   }
   50% {
     transform: translate3d(2%, -3%, 0) scale(1.04);
+  }
+}
+
+@keyframes mesh-pan {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
   }
 }
 

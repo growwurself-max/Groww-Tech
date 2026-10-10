@@ -10,7 +10,7 @@ import { AnimatedBackground } from "./animated-background";
 
 export function Hero() {
   return (
-    <Section id="top" spacing="lg" className="overflow-hidden pt-32 pb-20 sm:pt-36 md:pt-40 md:pb-24">
+    <Section spacing="lg" className="overflow-hidden pt-32 pb-20 sm:pt-36 md:pt-40 md:pb-24">
       <AnimatedBackground />
       <GridBackdrop />
       <GlowOrb className="-top-32 right-[-14%] size-[36rem] opacity-80" />

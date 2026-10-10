@@ -18,11 +18,11 @@ type ButtonProps = {
 };
 
 const base =
-  "group relative inline-flex select-none items-center justify-center gap-2 rounded-pill font-medium tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-smooth active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2";
+  "group relative inline-flex select-none items-center justify-center gap-2 rounded-pill font-medium tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color,background-position] duration-500 ease-smooth active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2";
 
 const variantMap: Record<Variant, string> = {
   primary:
-    "bg-brand-600 text-white shadow-brand hover:bg-brand-500 hover:shadow-brand-lg",
+    "bg-[linear-gradient(110deg,var(--color-brand-700)_0%,var(--color-brand-500)_48%,var(--color-brand-600)_100%)] bg-[length:220%_100%] bg-[position:0%_0%] text-white shadow-brand hover:bg-[position:100%_0%] hover:shadow-brand-lg",
   secondary:
     "border border-line bg-surface text-ink shadow-xs hover:border-line-strong hover:shadow-sm",
   ghost: "text-ink-muted hover:bg-canvas-soft hover:text-ink",
