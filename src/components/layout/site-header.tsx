@@ -1,18 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { mainNav } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { Brand } from "@/components/brand/brand";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -66,14 +67,16 @@ export function SiteHeader() {
 
           <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
             {mainNav.map((item) => (
-              <a
+              <motion.a
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className="rounded-pill px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-300 ease-smooth hover:bg-canvas-soft hover:text-ink focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                whileHover={{ y: -1 }}
+                transition={{ duration: 0.2 }}
               >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
           </nav>
 
@@ -82,16 +85,19 @@ export function SiteHeader() {
               Explore work
             </Button>
 
-            <button
+            <motion.button
               type="button"
               onClick={() => setOpen((value) => !value)}
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
               className="inline-flex size-10 items-center justify-center rounded-pill border border-line bg-surface text-ink shadow-xs transition-colors duration-300 ease-smooth hover:border-line-strong focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 md:hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
             >
               {open ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
-            </button>
+            </motion.button>
           </div>
         </div>
 

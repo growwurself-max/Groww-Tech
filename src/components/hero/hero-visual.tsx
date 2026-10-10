@@ -4,11 +4,11 @@ import type { PointerEvent } from "react";
 import {
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   useTransform,
 } from "motion/react";
 import { DURATION, EASE } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { AnalyticsPreview, PlatformPreview, VideoPreview } from "./product-previews";
 
 const SPRING = { stiffness: 110, damping: 20, mass: 0.6 } as const;
@@ -18,7 +18,7 @@ const SPRING = { stiffness: 110, damping: 20, mass: 0.6 } as const;
  * Parallax is pointer-fine only, so touch devices stay smooth and cheap.
  */
 export function HeroVisual() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);

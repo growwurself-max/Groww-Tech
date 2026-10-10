@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { Sparkles, Clock, CheckCircle2, Lightbulb, Rocket } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
@@ -174,7 +175,7 @@ function ConnectionLine({ delay }: { delay: number }) {
 }
 
 export function Growing() {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <Section id="growing" tone="soft" spacing="md" className="overflow-hidden">

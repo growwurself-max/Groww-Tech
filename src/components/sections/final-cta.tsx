@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { ArrowRight } from "lucide-react";
 import { EASE } from "@/lib/motion";
 import { Container, Section } from "@/components/ui/container";
@@ -10,7 +11,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 
 export function FinalCTA() {
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <Section id="cta" tone="soft" spacing="lg" className="overflow-hidden">

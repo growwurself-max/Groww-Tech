@@ -81,7 +81,7 @@ export const experiences: readonly Experience[] = [
     description: "A web app for looking up and checking scores.",
     tech: [],
     preview: "/screenshots/score-check.png",
-    liveUrl: null,
+    liveUrl: "https://scorecheck-azure.vercel.app/",
     videoUrl: null,
     visual: "scoreCheck",
   },

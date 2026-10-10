@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import {
   experiences,
   experienceFilters,
@@ -28,7 +29,7 @@ function matches(experience: Experience, filter: ExperienceFilter) {
 
 export function WebExperiences() {
   const [filter, setFilter] = useState<ExperienceFilter>("All");
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   const visible = useMemo(
     () => experiences.filter((experience) => matches(experience, filter)),

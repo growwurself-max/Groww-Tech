@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { motion } from "motion/react";
 import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "secondary" | "ghost";
@@ -58,15 +58,31 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes} aria-label={ariaLabel} onClick={handleClick}>
+      <motion.a
+        href={href}
+        className={classes}
+        aria-label={ariaLabel}
+        onClick={handleClick}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.2 }}
+      >
         {children}
-      </Link>
+      </motion.a>
     );
   }
 
   return (
-    <button type={type} className={classes} disabled={disabled} aria-label={ariaLabel}>
+    <motion.button
+      type={type}
+      className={classes}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2 }}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }

@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Container, Section } from "@/components/ui/container";
 import { GlowOrb, GridBackdrop } from "@/components/ui/decor";
 import { HeroVisual } from "./hero-visual";
+import { AnimatedBackground } from "./animated-background";
 
 export function Hero() {
   return (
     <Section id="top" spacing="lg" className="overflow-hidden pt-32 pb-20 sm:pt-36 md:pt-40 md:pb-24">
+      <AnimatedBackground />
       <GridBackdrop />
       <GlowOrb className="-top-32 right-[-14%] size-[36rem] opacity-80" />
       <GlowOrb tone="neutral" className="top-1/4 left-[-18%] size-[28rem]" />

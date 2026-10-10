@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import { DURATION, EASE, VIEWPORT, fadeIn, fadeUp, scaleIn } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 type RevealVariant = "up" | "in" | "scale";
 
@@ -32,7 +33,7 @@ export function Reveal({
   amount = VIEWPORT.amount,
   once = VIEWPORT.once,
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const target = variantMap[variant];
 
   if (reduceMotion) {
@@ -69,7 +70,7 @@ export function RevealGroup({
   delay = 0,
   amount = VIEWPORT.amount,
 }: RevealGroupProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -101,7 +102,7 @@ export function RevealItem({
   className?: string;
   variant?: RevealVariant;
 }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;

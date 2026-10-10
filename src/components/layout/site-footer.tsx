@@ -49,7 +49,7 @@ export function SiteFooter() {
             </h3>
             <ul className="flex flex-col gap-2">
               {navLinks.map((item) => (
-                <li key={item.href}>
+                <li key={`${item.label}-${item.href}`}>
                   <a
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}

@@ -326,7 +326,7 @@ function ScreenshotVisual({ src, alt, fallback }: { src: string; alt: string; fa
   }
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-2xl bg-canvas-soft">
+    <div className="relative aspect-16/10 w-full overflow-hidden rounded-2xl bg-canvas-soft">
       <Image
         src={src}
         alt={alt}

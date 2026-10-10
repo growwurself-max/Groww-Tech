@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { Code2, Database, Sparkles, Layers, Server, Cloud, Zap, Box } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
@@ -42,7 +43,7 @@ const categoryColors: Record<Tech["category"], string> = {
 };
 
 export function TechnologyCapabilities() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const grouped = techStack.reduce<Record<Tech["category"], Tech[]>>(
     (acc, tech) => {
       acc[tech.category] = acc[tech.category] || [];

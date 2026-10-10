@@ -3,11 +3,12 @@
 import React from "react";
 import type { PointerEvent } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight, ListVideo, PlayCircle } from "lucide-react";
 import type { Experience } from "@/config/experiences";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { ExperienceArtwork } from "./experience-visuals";
 
 const SPRING = { stiffness: 130, damping: 22, mass: 0.5 } as const;
@@ -20,7 +21,7 @@ type ExperienceCardProps = {
 };
 
 export function ExperienceCard({ experience, index = 0, featured = false }: ExperienceCardProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const [imageError, setImageError] = React.useState(false);
   const { name, description, tech, category, liveUrl, videoUrl, videoLabel, preview } = experience;
 

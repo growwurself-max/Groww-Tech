@@ -1,17 +1,18 @@
 "use client";
 
 import type { PointerEvent } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight, PlayCircle } from "lucide-react";
 import type { Product } from "@/config/products";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 import { ProductVisualArea } from "./product-visuals";
 
 const SPRING = { stiffness: 130, damping: 22, mass: 0.5 } as const;
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   const variants = {
     hidden: { opacity: 0, y: 30 },
@@ -57,15 +58,28 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       }
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-surface",
-        "shadow-xs transition-[box-shadow,border-color] duration-500 ease-smooth",
-        "hover:border-line-strong hover:shadow-lg",
+        "shadow-xs transition-all duration-500 ease-smooth",
+        "hover:border-line-strong hover:shadow-xl hover:shadow-brand/10",
       )}
     >
+      {/* Animated border gradient on hover */}
+      <motion.div
+        className="absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500"
+        style={{
+          background: "linear-gradient(135deg, var(--color-brand-200) 0%, var(--color-brand-100) 50%, transparent 100%)",
+          filter: "blur(8px)",
+        }}
+        whileHover={{ opacity: 0.5 }}
+        transition={{ duration: 0.3 }}
+      />
+
       {/* Visual area — drifts slightly against the pointer for depth */}
       <div className="relative overflow-hidden p-3 pb-0 sm:p-4 sm:pb-0">
         <motion.div
           style={reduceMotion ? undefined : { x, y }}
           className="transition-transform duration-700 ease-smooth will-change-transform"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <ProductVisualArea visual={product.visual} name={product.name} />
         </motion.div>
@@ -104,27 +118,37 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         {/* Actions render only when a real, verified URL exists */}
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
           {product.liveUrl ? (
-            <a
+            <motion.a
               href={product.liveUrl}
               target="_blank"
               rel="noreferrer noopener"
               className="inline-flex h-11 items-center gap-1.5 rounded-pill bg-ink px-4 text-sm font-medium text-white transition-colors duration-300 ease-smooth hover:bg-brand-700"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
             >
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-brand-400" />
+                <span className="relative inline-flex size-2 rounded-full bg-brand-400" />
+              </span>
               Live Demo
               <ArrowUpRight className="size-3.5" />
-            </a>
+            </motion.a>
           ) : null}
 
           {product.videoUrl ? (
-            <a
+            <motion.a
               href={product.videoUrl}
               target="_blank"
               rel="noreferrer noopener"
               className="inline-flex h-11 items-center gap-1.5 rounded-pill border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors duration-300 ease-smooth hover:border-line-strong"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
             >
               <PlayCircle className="size-3.5" />
               Watch
-            </a>
+            </motion.a>
           ) : null}
 
           {!product.liveUrl && !product.videoUrl ? (

@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SkipLink } from "@/components/layout/skip-link";
+import { CursorSpotlight } from "@/components/ui/cursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,6 +34,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  icons: {
+    icon: "/icon.svg",
+  },
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
@@ -64,6 +68,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${mono.variable}`}>
       <body className="bg-wash min-h-dvh bg-canvas text-ink antialiased">
         <SmoothScroll />
+        <CursorSpotlight />
         <SkipLink />
         <SiteHeader />
         <main id="main" className="scroll-mt-20">
