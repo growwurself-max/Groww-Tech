@@ -49,13 +49,21 @@ export function FinalCTA() {
               className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center"
             >
               <Button
-                href="#products"
+                href="#contact"
                 variant="primary"
                 size="lg"
                 className="group"
               >
-                Explore Our Work
+                Start a Project
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Button>
+              <Button
+                href="#products"
+                variant="secondary"
+                size="lg"
+                className="group"
+              >
+                Explore Our Work
               </Button>
             </motion.div>
           </div>

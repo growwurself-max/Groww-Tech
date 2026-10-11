@@ -81,8 +81,8 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button href="#products" size="sm" className="hidden sm:inline-flex">
-              Explore work
+            <Button href="#contact" size="sm" className="hidden sm:inline-flex">
+              Start a Project
             </Button>
 
             <motion.button
@@ -127,6 +127,18 @@ export function SiteHeader() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href="#contact"
+                    onClick={(e) => {
+                      handleNavClick(e, "#contact");
+                      setOpen(false);
+                    }}
+                    className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-ink transition-colors duration-300 ease-smooth hover:bg-canvas-soft focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                  >
+                    Start a Project
+                  </a>
+                </li>
               </ul>
             </motion.nav>
           ) : null}

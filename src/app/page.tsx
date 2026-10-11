@@ -5,6 +5,7 @@ import { WatchOurWork } from "@/components/sections/watch-our-work";
 import { HowWeBuild } from "@/components/sections/how-we-build";
 import { TechnologyCapabilities } from "@/components/sections/technology-capabilities";
 import { Growing } from "@/components/sections/growing";
+import { Contact } from "@/components/sections/contact";
 import { FinalCTA } from "@/components/sections/final-cta";
 import { siteConfig } from "@/config/site";
 
@@ -23,6 +24,7 @@ export default function Home() {
       <HowWeBuild />
       <TechnologyCapabilities />
       <Growing />
+      <Contact />
       <FinalCTA />
     </>
   );
