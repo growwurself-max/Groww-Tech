@@ -15,6 +15,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   ariaLabel?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const base =
@@ -43,6 +44,7 @@ export function Button({
   type = "button",
   disabled,
   ariaLabel,
+  onClick,
 }: ButtonProps) {
   const classes = cn(base, variantMap[variant], sizeMap[size], className);
 
@@ -78,6 +80,7 @@ export function Button({
       className={classes}
       disabled={disabled}
       aria-label={ariaLabel}
+      onClick={onClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
