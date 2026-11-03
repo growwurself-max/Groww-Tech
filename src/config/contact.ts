@@ -18,11 +18,11 @@ export type ProjectType = (typeof PROJECT_TYPES)[number];
 
 export const BUDGET_OPTIONS = [
   "Not sure yet",
-  "Under $1,000",
-  "$1,000 – $5,000",
-  "$5,000 – $15,000",
-  "$15,000 – $50,000",
-  "$50,000+",
+  "Under ₹1,00,000",
+  "₹1,00,000 – ₹5,00,000",
+  "₹5,00,000 – ₹15,00,000",
+  "₹15,00,000 – ₹50,00,000",
+  "₹50,00,000+",
 ] as const;
 
 export type BudgetOption = (typeof BUDGET_OPTIONS)[number];
@@ -50,3 +50,10 @@ export const CONTACT_ENV = {
   from: "CONTACT_FROM_EMAIL",
   to: "CONTACT_TO_EMAIL",
 } as const;
+
+/**
+ * WhatsApp number for direct inquiries.
+ * Use international format with country code, without '+' or spaces.
+ * Example: "15551234567" for +1 (555) 123-4567
+ */
+export const WHATSAPP_NUMBER = "YOUR_WHATSAPP_NUMBER";

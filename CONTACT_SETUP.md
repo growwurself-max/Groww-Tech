@@ -50,6 +50,16 @@ CONTACT_TO_EMAIL=growwurself@gmail.com
 - `CONTACT_TO_EMAIL` is optional - it defaults to `growwurself@gmail.com`
 - Never commit `.env.local` to Git (it's already in `.gitignore`)
 
+### Production on Vercel
+
+In **Vercel → Project → Settings → Environment Variables**, configure:
+
+- `RESEND_API_KEY`: an active Resend API key with permission to send email
+- `CONTACT_FROM_EMAIL`: an address on a domain verified in Resend, such as `GROWW TECH <hello@groww.tech>`
+- `CONTACT_TO_EMAIL`: `growwurself@gmail.com` (optional because this is the route's default)
+
+Set these for the **Production** environment, and redeploy after changing them. Check that the sender domain is verified in Resend and that the API key belongs to the intended Resend account. Resend may restrict recipients to an account-owned address until a sending domain is verified. Vercel detects the Next.js route runtime; do not pin this route to an older Node.js runtime in `vercel.json`.
+
 ### Step 5: Restart the Development Server
 
 After adding the environment variables, restart your Next.js server:

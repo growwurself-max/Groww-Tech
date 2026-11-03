@@ -14,6 +14,7 @@ import {
   CONTACT_LIMITS,
   MIN_DESCRIPTION,
   PROJECT_TYPES,
+  WHATSAPP_NUMBER,
 } from "@/config/contact";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -21,6 +22,7 @@ import { cn } from "@/lib/cn";
 type Values = {
   fullName: string;
   email: string;
+  phone: string;
   projectType: string;
   budget: string;
   description: string;
@@ -31,6 +33,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 const EMPTY: Values = {
   fullName: "",
   email: "",
+  phone: "",
   projectType: "",
   budget: "",
   description: "",
@@ -43,11 +46,15 @@ function validate(values: Values): Record<string, string> {
   const errors: Record<string, string> = {};
   const name = values.fullName.trim();
   const email = values.email.trim();
+  const phone = values.phone.trim();
   const description = values.description.trim();
 
   if (name.length < 2) errors.fullName = "Please enter your full name.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     errors.email = "Please enter a valid email address.";
+  }
+  if (phone && !/^\+?[\d\s\-\(\)]{10,}$/.test(phone)) {
+    errors.phone = "Please enter a valid phone number.";
   }
   if (!values.projectType) errors.projectType = "Please choose a project type.";
   if (description.length < MIN_DESCRIPTION) {
@@ -94,45 +101,33 @@ export function ContactForm() {
     setStatus("submitting");
     setMessage("");
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...values,
-          website: honeypot,
-          elapsedMs: Date.now() - startedAtRef.current,
-        }),
-      });
+    // Build WhatsApp message with all form details
+    const message = `📋 *New Project Inquiry*
 
-      const data = (await response.json().catch(() => ({}))) as {
-        ok?: boolean;
-        error?: string;
-        fieldErrors?: Record<string, string>;
-      };
+*Name:* ${values.fullName.trim()}
+*Email:* ${values.email.trim()}
+${values.phone.trim() ? `*Phone:* ${values.phone.trim()}\n` : ''}*Project Type:* ${values.projectType}
+${values.budget ? `*Budget:* ${values.budget}\n` : ''}*Description:*
+${values.description.trim()}`;
 
-      if (response.ok && data.ok) {
-        setSubmittedName(values.fullName.trim());
-        setValues(EMPTY);
-        setHoneypot("");
-        setFieldErrors({});
-        setMessage("");
-        setStatus("success");
-        return;
-      }
+    // URL-encode the message
+    const encodedMessage = encodeURIComponent(message);
 
-      setFieldErrors(data.fieldErrors ?? {});
-      setMessage(
-        data.error ??
-          "We couldn't send your inquiry right now. Please try again in a moment.",
-      );
-      setStatus("error");
-    } catch {
-      setMessage(
-        "We couldn't reach the server. Please check your connection and try again.",
-      );
-      setStatus("error");
-    }
+    // Construct WhatsApp URL
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    // Show success message before redirecting
+    setSubmittedName(values.fullName.trim());
+    setValues(EMPTY);
+    setHoneypot("");
+    setFieldErrors({});
+    setMessage("");
+    setStatus("success");
+
+    // Open WhatsApp after a short delay to show success message
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 1500);
   };
 
   if (status === "success") {
@@ -149,8 +144,8 @@ export function ContactForm() {
           {submittedName ? `Thanks, ${submittedName}!` : "Thank you!"}
         </h2>
         <p className="mt-3 max-w-md text-sm text-pretty text-ink-muted">
-          Your project inquiry reached us. We&apos;ll review the details and get
-          back to you — usually within a couple of business days.
+          WhatsApp is opening with your inquiry ready to send. Complete the
+          message there to reach us directly!
         </p>
         <Button
           type="button"
@@ -217,6 +212,31 @@ export function ContactForm() {
           {fieldErrors.email ? (
             <p id="email-error" className="text-xs text-red-600">
               {fieldErrors.email}
+            </p>
+          ) : null}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="phone" className="text-sm font-medium text-ink">
+            Phone number{" "}
+            <span className="font-normal text-ink-faint">(optional)</span>
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            maxLength={CONTACT_LIMITS.fullName}
+            value={values.phone}
+            onChange={(e) => update("phone", e.target.value)}
+            aria-invalid={Boolean(fieldErrors.phone)}
+            aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
+            className={cn(inputClass, fieldErrors.phone && "border-red-400")}
+            placeholder="+1 (555) 123-4567"
+          />
+          {fieldErrors.phone ? (
+            <p id="phone-error" className="text-xs text-red-600">
+              {fieldErrors.phone}
             </p>
           ) : null}
         </div>
@@ -345,7 +365,7 @@ export function ContactForm() {
 
       <div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-xs text-xs text-pretty text-ink-subtle">
-          Your details are used only to respond to your project inquiry.
+          Your inquiry will be sent directly via WhatsApp for a faster response.
         </p>
         <Button
           type="submit"
@@ -356,12 +376,12 @@ export function ContactForm() {
           {status === "submitting" ? (
             <>
               <Loader2 className="size-4 animate-spin" />
-              Sending…
+              Opening WhatsApp…
             </>
           ) : (
             <>
               <Send className="size-4" />
-              Send inquiry
+              Send via WhatsApp
               <ArrowRight className="size-4 transition-transform duration-300 ease-smooth group-hover:translate-x-0.5" />
             </>
           )}
