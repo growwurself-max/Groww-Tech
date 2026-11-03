@@ -18,11 +18,11 @@ export type ProjectType = (typeof PROJECT_TYPES)[number];
 
 export const BUDGET_OPTIONS = [
   "Not sure yet",
-  "Under ₹1,00,000",
-  "₹1,00,000 – ₹5,00,000",
-  "₹5,00,000 – ₹15,00,000",
-  "₹15,00,000 – ₹50,00,000",
-  "₹50,00,000+",
+  "Under ₹10,000",
+  "₹10,000 – ₹30,000",
+  "₹30,000 – ₹50,000",
+  "₹50,000 – ₹1,00,000",
+  "₹1,00,000+",
 ] as const;
 
 export type BudgetOption = (typeof BUDGET_OPTIONS)[number];
@@ -56,4 +56,4 @@ export const CONTACT_ENV = {
  * Use international format with country code, without '+' or spaces.
  * Example: "15551234567" for +1 (555) 123-4567
  */
-export const WHATSAPP_NUMBER = "YOUR_WHATSAPP_NUMBER";
+export const WHATSAPP_NUMBER = "917989630840";
