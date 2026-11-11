@@ -66,6 +66,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${mono.variable}`}>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7446210778534700"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="bg-wash min-h-dvh bg-canvas text-ink antialiased">
         <SmoothScroll />
         <CursorSpotlight />
