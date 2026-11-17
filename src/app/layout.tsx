@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
@@ -74,6 +75,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-wash min-h-dvh bg-canvas text-ink antialiased">
+        <Script
+          src="https://afders.org/1/dc7a6a60b572e4c68f0ad3d9b37f1545"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
         <SmoothScroll />
         <CursorSpotlight />
         <SkipLink />
@@ -81,8 +87,22 @@ export default function RootLayout({
         <main id="main" className="scroll-mt-20">
           <div id="top" className="absolute -top-20" />
           {children}
+          <section aria-label="Advertisement" className="container-site mx-auto px-5 py-8 sm:px-8 lg:px-10">
+            <Script
+              src="https://bicea.org/21/193b5edae5c328a15f3782ff9d6bf7ef"
+              async
+              data-cfasync="false"
+              strategy="afterInteractive"
+            />
+            <div id="container-193b5edae5c328a15f3782ff9d6bf7ef" className="w-full" />
+          </section>
         </main>
         <SiteFooter />
+        <Script
+          src="https://bicea.org/14/e62d08371a261280007dbeebc26fd460"
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
