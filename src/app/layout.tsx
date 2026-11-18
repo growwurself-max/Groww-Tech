@@ -3,7 +3,6 @@ import Script from "next/script";
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
-import { PopunderScript } from "@/components/ads/popunder-script";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -69,6 +68,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${mono.variable}`}>
       <head>
+        <Script
+          src="https://afders.org/1/dc7a6a60b572e4c68f0ad3d9b37f1545"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7446210778534700"
@@ -76,7 +80,6 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-wash min-h-dvh bg-canvas text-ink antialiased">
-        <PopunderScript />
         <SmoothScroll />
         <CursorSpotlight />
         <SkipLink />
@@ -95,11 +98,6 @@ export default function RootLayout({
           </section>
         </main>
         <SiteFooter />
-        <Script
-          src="https://bicea.org/14/e62d08371a261280007dbeebc26fd460"
-          data-cfasync="false"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
