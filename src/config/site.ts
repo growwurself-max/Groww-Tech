@@ -20,6 +20,7 @@ export const mainNav: readonly NavItem[] = [
   { label: "How We Build", href: "#how-we-build" },
   { label: "Tech", href: "#tech" },
   { label: "Growing", href: "#growing" },
+  { label: "Pricing", href: "#pricing" },
 ];
 
 

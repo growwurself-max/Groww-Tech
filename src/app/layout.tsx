@@ -68,10 +68,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${mono.variable}`}>
       <head>
-        <Script
-          src="https://afders.org/1/dc7a6a60b572e4c68f0ad3d9b37f1545"
+        <script
           data-cfasync="false"
-          strategy="beforeInteractive"
+          src="https://afders.org/1/dc7a6a60b572e4c68f0ad3d9b37f1545"
         />
         <script
           async
