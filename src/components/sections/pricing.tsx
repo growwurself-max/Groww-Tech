@@ -63,6 +63,7 @@ const maintenancePackages = [
   {
     name: "Basic Care",
     price: "₹299/month",
+    description: "Essential upkeep to keep your website running smoothly",
     features: [
       "Regular updates",
       "Security monitoring",
@@ -73,6 +74,7 @@ const maintenancePackages = [
   {
     name: "Business Care",
     price: "₹599/month",
+    description: "Ongoing support and updates for growing businesses",
     features: [
       "All Basic Care features",
       "Content updates (2/month)",
@@ -83,6 +85,7 @@ const maintenancePackages = [
   {
     name: "Premium Care",
     price: "₹999/month",
+    description: "Comprehensive support for complete peace of mind",
     features: [
       "All Business Care features",
       "Unlimited content updates",
