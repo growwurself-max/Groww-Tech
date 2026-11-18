@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { PopunderScript } from "@/components/ads/popunder-script";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -75,11 +76,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-wash min-h-dvh bg-canvas text-ink antialiased">
-        <Script
-          src="https://afders.org/1/dc7a6a60b572e4c68f0ad3d9b37f1545"
-          data-cfasync="false"
-          strategy="beforeInteractive"
-        />
+        <PopunderScript />
         <SmoothScroll />
         <CursorSpotlight />
         <SkipLink />
