@@ -66,6 +66,14 @@ export function FinalCTA() {
                 Explore Our Work
               </Button>
             </motion.div>
+            <a
+              href="https://arwf.org/4/1c1ed517a7fa3e392f2366ae7d8176b2"
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              className="mt-5 inline-flex min-h-11 items-center justify-center rounded px-3 text-sm text-ink-muted underline underline-offset-4 transition-colors hover:text-brand-700 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            >
+              Sponsored offer
+            </a>
           </div>
         </Reveal>
       </Container>
